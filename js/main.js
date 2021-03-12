@@ -338,7 +338,7 @@ function initModel() {
 
     } else {
         // set the view first so "v=" appears at the beginning of the URL
-        centerViewOn(-52, -241, 2, 0);
+        centerViewOn(0, 0, 2, 0);
         var starterRoom = new Room(getRoomMetadata("h1"));
         starterRoom.setPosition(0, 0, 0, 0);
 	    addRoom(starterRoom);
