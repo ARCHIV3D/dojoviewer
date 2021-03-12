@@ -1,3 +1,6 @@
+* { 
+	cursor: url('sor.cur'), pointer;
+}
 /* z-index groups:
         0: body, grid
         100x: background rooms not on the current floor
