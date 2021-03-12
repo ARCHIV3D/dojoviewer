@@ -93,7 +93,7 @@ class EnergyRule extends RoomRule {
 	}
 
 	toString() {
-		return "Energy required";
+		return "Énergie requise";
 	}
 }
 
@@ -122,7 +122,7 @@ class CapacityRule extends RoomRule {
 	}
 
 	toString() {
-		return "Capacity required";
+		return "Capacité requise";
 	}
 }
 
@@ -186,7 +186,7 @@ class PrereqRule extends RoomRule {
 		this.prereq_id = prereqRoomMetadata.id;
 		this.room_list = Array();
 		this.prereq_list = Array();
-		this.errorMessage = prereqRoomMetadata.name + " required";
+		this.errorMessage = prereqRoomMetadata.name + " requis(e)";
 	}
 
 	roomAdded(room) {
@@ -275,7 +275,7 @@ class SpawnRule extends RoomRule {
 	}
 
 	toString() {
-		return "Spawn room required";
+		return "Salle de spawn requise";
 	}
 }
 
