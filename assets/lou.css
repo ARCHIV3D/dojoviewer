@@ -439,9 +439,9 @@
         border-radius: 1ex;
     }
 
-    .imgButton {
+    /*.imgButton {
         cursor: pointer;
-    }
+    }*/
 
     .menu-table-error tr td.field, .menu-table-error tr td.imgField  {
         background-color: #381818;
