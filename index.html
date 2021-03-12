@@ -1,0 +1,222 @@
+<html xmlns="http://www.w3.org/1999/html">
+<meta name="robots" content="noindex, nofollow, noarchive" />
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<head>
+    <title>A private DojoViewer</title>
+</head>
+<link href="assets/logo.png" rel="icon" type="image/png" />
+<link rel="stylesheet" href="/assets/dojo.css" type="text/css" />
+<script type="text/javascript" language="javascript" src="js/lib/lz-string.js" ></script>
+<script type="text/javascript" language="javascript" src="js/room-metadata.js" ></script>
+<script type="text/javascript" language="javascript" src="js/util.js"></script>
+<script type="text/javascript" language="javascript" src="js/model.js"></script>
+<script type="text/javascript" language="javascript" src="js/rules.js"></script>
+<script type="text/javascript" language="javascript" src="js/undo.js"></script>
+<script type="text/javascript" language="javascript" src="js/main.js"></script>
+<script type="text/javascript" language="javascript" src="js/events.js"></script>
+<script type="text/javascript" language="javascript" src="js/elevator.js"></script>
+<script type="text/javascript" language="javascript" src="js/menus.js"></script>
+<script type="text/javascript" language="javascript">
+    function toggleHelp() {
+        var help = document.getElementById("help");
+        var helpToggle = document.getElementById("helpToggle");
+
+        if (help.style.visibility == "visible") {
+            help.style.visibility = "hidden";
+            helpToggle.innerHTML = '<img src="icons/icon-help.png" srcset="icons2x/icon-help.png 2x" title="Show Help"/>';
+            removeUrlAnchor();
+
+        } else {
+            help.style.visibility = "visible";
+            helpToggle.innerHTML = '<img src="icons/icon-close.png" srcset="icons2x/icon-close.png 2x" title="Close Help"/>';
+        }
+    }
+    function toggleFooter() {
+        if (window.event && window.event.altKey) {
+            toggleDebug();
+            return;
+        }
+    }
+    function toggleDebug() {
+        if (debugEnabled) {
+            debugEnabled = false;
+            setModelDebug(false);
+            showDebug("Debug: off");
+            hideDebug();
+			removeUrlQueryParam("m");
+            removeUrlQueryParam("debug");
+			saveModelToUrl();
+        } else {
+            debugEnabled = true;
+            setModelDebug(true);
+            showDebug("Debug: on");
+			removeUrlQueryParam("mz");
+            modifyUrlQueryParam("debug", "true");
+			saveModelToUrl();
+        }
+        enableAutoScrollDebug(debugEnabled);
+    }
+    function windowOnError(msg, url, lineNo, columnNo, error) {
+        var html = url + ": " + lineNo + ":" + columnNo + "<br/>";
+        var html = html + msg.replace("Uncaught ", "");
+        showError(html);
+        return false;
+    }
+    function showError(html) {
+        clearMenus();
+        var errorBarElement = document.getElementById("errorBar");
+        errorBarElement.innerHTML = html;
+        errorBarElement.style.visibility = "visible";
+        return false;
+    }
+    function clearErrors() {
+        var errorBarElement = document.getElementById("errorBar");
+        if (errorBarElement.style.visibility != "hidden") {
+            errorBarElement.innerHTML = "";
+            errorBarElement.style.visibility = "hidden";
+        }
+    }
+    var debugCount = 0;
+    var maxDebugLines = 5;
+    function showDebug(html) {
+        var debugBarElement = document.getElementById("debugBar");
+        while (debugBarElement.childElementCount >= maxDebugLines) {
+            debugBarElement.firstElementChild.remove();
+        }
+        var div = document.createElement("div");
+        debugCount++;
+        div.innerHTML = debugCount + ". " + html;
+        debugBarElement.appendChild(div);
+
+        debugBarElement.style.visibility = "visible";
+    }
+    function hideDebug() {
+        var debugBarElement = document.getElementById("debugBar");
+
+        debugBarElement.style.visibility = "hidden";
+    }
+    function init() {
+        window.onerror = windowOnError;
+        onresize();
+        var grid = document.getElementById("grid");
+        grid.addEventListener("mousedown", mouseDown, { passive: false });
+        grid.addEventListener("wheel", wheel, { passive: false });
+        grid.addEventListener("touchstart", touchStart, { passive: false });
+        grid.addEventListener("touchcancel", touchCancel, { passive: false });
+        clearErrors();
+        initModel();
+        if (window.location.href.indexOf("#") > 0) {
+            toggleHelp();
+        }
+        if (getQueryParam(window.location.href, "debug") == "true") {
+            toggleDebug();
+        }
+    }
+    function onresize() {
+        var h = Math.max(document.documentElement.clientHeight, window.innerHeight);
+        var w = Math.max(document.documentElement.clientWidth, window.innerWidth);
+        windowSizeChanged(h, w);
+    }
+    function onScroll() {
+        document.body.scrollTo(0, 0);
+    }
+</script>
+<body onload="init()" onkeydown="keyDown()" onscroll="onScroll()" onresize="onresize()">
+<div id="grid"></div>
+<div id="roomContainer"></div>
+<div id="header">
+    <span id="burgerButton" class="button" onclick="doBurgerMenu(this)"><img src="icons/icon-burger.png" srcset="icons2x/icon-burger.png 2x" title="Menu"/></span>
+    <span id="addRoomButton" class="button" onclick="doAddMenu(this)"><img src="icons/icon-add.png" srcset="icons2x/icon-add.png 2x" title="Add Room"/></span>
+    <span id="undoButton" class="button-disabled" onclick="doUndo(this)"><img src="icons/icon-undo.png" srcset="icons2x/icon-undo.png 2x" title="Undo"/></span>
+    <span id="redoButton" class="button-disabled" onclick="doRedo(this)"><img src="icons/icon-redo.png" srcset="icons2x/icon-redo.png 2x" title="Redo"/></span>
+    <span id="allErrorsButton" class="button-clear" onclick="doShowAllErrors(this)"><img src="icons/icon-ok.png" srcset="icons2x/icon-ok.png 2x" title="OK"/></span>
+</div>
+<div id="sidebar">
+    <div id="floorUpButton" class="button" onclick="doFloorUp(this)"><img id="floorUpButtonImg" src="icons/icon-up.png" srcset="icons2x/icon-up.png 2x" title="Up"/></div>
+    <div id="floorDownButton" class="button" onclick="doFloorDown(this)"><img id="floorDownButtonImg" src="icons/icon-down.png" srcset="icons2x/icon-down.png 2x" title="Down"/></div>
+</div>
+<div id="helpToggle" class="button" onclick="toggleHelp()"><img src="icons/icon-help.png" srcset="icons2x/icon-help.png 2x" title="Show Help"/></div>
+<div id="errorBar">
+    Javascript must be enabled
+</div>
+<div id="help">
+    <div class="helpTop">
+        <a class=".top" href="#TOC">top</a>
+    </div>
+    <div class="helpBox">
+        <div class="helpContainer">
+            <h1>
+                <span class="title">Watsonius Tenno.WF</span>
+            </h1>
+            <p style="text-align: center;">
+                v1.5.5-Lou.u: 2021-02-09 <br>
+                Basé sur un projet de <a href="https://github.com/githork/dojocad" rel="nofollow noopener noindex" style="text-decoration:none;color: white;" target="_blank">Buff0000n</a>.
+            </p>
+            <h1>Qu'est-ce que c'est ?</h1>
+            <p>
+                Il s'agit d'un outil permettant de planifier la disposition d'un Dojo de Clan valide. <br>
+                Grâce à celui-ci, vous aurais donc visuellement en continue la disposition de notre Dojo même en dehors de Warframe.
+            </p>
+            <h2>Clause de non-responsabilité (Disclaimer)</h2>
+            <p>
+                <strong class="warn">Merci de ne pas modifier le lien et vous servir à vos besoins de cet outil.</strong> <br>
+                Un lien plus haut est disponible pour acquérir le projet original dont est basé la page Dojo de Watsonius Tenno. <br> 
+                Merci donc de vous en servir si vous en avez besoin.
+            </p>
+            <h1>Navigation</h1>
+            <p>
+                Cliquez et faites glisser n'importe où dans la zone de la grille pour vous déplacer.
+            </p>
+            <h2>Zoom</h2>
+            <p>
+                Utilisez la molette de la souris pour effectuer un zoom avant ou arrière. Le curseur marque le point central du zoom.
+            </p>
+            <h2>Changée d'Étage (s'il y a plusieurs étages)</h2>
+            <p>
+                L'étage en surbrillance à gauche de l'écran indique quel étage est actuellement visible. Les numéros d'étage commencent à <strong>1</strong> au rez-de-chaussée et augmentent à partir de là. Sous l'étage <strong>1</strong> se trouve l'étage <strong>B1</strong>, et le décompte se fait à partir de là.
+            </p>
+            <p>
+                Utilisez le bouton <span class="docImgButton"><img src="/assets/resources/images/dojo/icons/icon-up.png" srcset="/assets/resources/images/dojo/icons2x/icon-up.png 2x" title="Monté"/></span> au-dessus de la liste des étages pour voir l'étage supérieur. <br>
+                Utilisez le bouton <span class="docImgButton"><img src="/assets/resources/images/dojo/icons/icon-down.png" srcset="/assets/resources/dojo/icons2x/icon-down.png 2x" title="Descendre"/></span> pour afficher l'étage inférieur suivant. <br>
+                Vous pouvez également utiliser les touches fléchées <strong>haut</strong> et <strong>bas</strong> pour vous déplacer entre les étages.
+            </p>
+            <p>
+                La liste des étages a un nombre maximum d'étages qu'elle peut afficher en même temps.
+                S'il y a un débordement en haut ou en bas, alors la <span class="docImgButton"><img src="/assets/resources/images/dojo/icons/icon-up.png" srcset="/assets/resources/images/dojo/icons2x/icon-up.png 2x" title="Monté"/></span> et/ou <span class="docImgButton"><img src="/assets/resources/images/dojo/icons/icon-down.png" srcset="/assets/resources/images/dojo/icons2x/icon-down.png 2x" title="Descendre"/></span> <br> seront remplacés par <span class="docImgButton"><img src="/assets/resources/images/dojo/icons/icon-up-more.png" srcset="/assets/resources/images/dojo/icons2x/icon-up-more.png 2x" title="Monté"/></span> et/ou <span class="docImgButton"><img src="/assets/resources/images/dojo/icons/icon-down-more.png" srcset="/assets/resources/images/dojo/icons2x/icon-down-more.png 2x" title="Descendre"/></span>
+            </p>
+            <p>
+                Les étages contenant des pièces avec des erreurs seront mis en évidence en <span class="docButton-error">rouges</span>.
+            </p>
+
+            <h2>Changer l'étage d'un ascenseur</h2>
+            <p>
+                Les ascenseurs couvrent deux étages, soit en montant de l'étage actuel, soit en descendant. Pour changer la direction d'un ascenseur, sélectionnez-le et cliquez à nouveau pour faire apparaître un menu. Sélectionnez <span class="docImgButton"><img src="/assets/resources/images/dojo/icons/icon-change-floor.png" srcset="/assets/resources/images/dojo/icons2x/icon-change-floor.png 2x" title="Changer de direction"/></span> pour changer la direction de l'ascenseur.
+            </p>
+
+            <h1>Exportation en PNG</h1>
+            <p>
+                Vous souhaitez avoir une image de notre Dojo ? Cliquez sur le <span class="docImgButton"><img src="/assets/resources/images/dojo/icons/icon-burger.png" srcset="/assets/resources/images/dojo/icons2x/icon-burger.png 2x" title="Menu"/></span> puis <span class="docImgButton"><img src="/assets/resources/images/dojo/icons/icon-png.png" srcset="/assets/resources/images/dojo/icons2x/icon-png.png 2x" title="PNG"/></span> pour faire apparaître un menu permettant d'exporter la mise en page de notre dojo vers un ou plusieurs fichiers PNG. <br> Par la suite, il vous suffit d'appuyer sûr <strong class="docButton">Créer l'image</strong>
+            </p>
+            <p>
+                Si notre dojo a plusieurs étages, une image distincte est générée pour chaque étage. La même taille et le même positionnement sont utilisés pour les images de chaque étage, de sorte qu'elles s'alignent les unes sur les autres.
+            </p>
+            <p>
+                <strong class="warn">Si notre dojo est immense et que nous générons une image énorme, les liens vers l'image peuvent prendre un certain temps à apparaître.</strong>
+            </p>
+        </div>
+    </div>
+</div>
+<div id="debugBar">
+</div>
+<span id="statsBar">
+    <span class="field"><span id="numRoomsStat" class="stat">0</span><img src="icons/icon-count.png" srcset="icons2x/icon-count.png 2x" title="Room Count"/></span>
+    <span class="field"><span id="energyStat" class="stat">0</span><img src="icons/icon-energy.png" srcset="icons2x/icon-energy.png 2x" title="Energy"/></span>
+    <span class="field"><span id="capacityStat" class="stat">0</span><img src="icons/icon-capacity.png" srcset="icons2x/icon-capacity.png 2x" title="Capacity"/></span>
+    <span class="field clickable" onclick="showResources()"><img src="icons/icon-resources.png" srcset="icons2x/icon-resources.png 2x" title="Resources"/></span>
+</span>
+<div id="footer">
+    <span id="footerToggle" onclick="toggleFooter()"><img src="/assets/logo.png" height="120" width="120" draggable="false" title="Watsonius Tenno.WF" /></span>
+</div>
+</body>
+</html>
