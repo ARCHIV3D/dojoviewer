@@ -24,12 +24,12 @@
 
         if (help.style.visibility == "visible") {
             help.style.visibility = "hidden";
-            helpToggle.innerHTML = '<img src="icons/icon-help.png" srcset="icons2x/icon-help.png 2x" title="Show Help"/>';
+            helpToggle.innerHTML = '<img src="icons/icon-help.png" srcset="icons2x/icon-help.png 2x" title="Ouvrir les Informations"/>';
             removeUrlAnchor();
 
         } else {
             help.style.visibility = "visible";
-            helpToggle.innerHTML = '<img src="icons/icon-close.png" srcset="icons2x/icon-close.png 2x" title="Close Help"/>';
+            helpToggle.innerHTML = '<img src="icons/icon-close.png" srcset="icons2x/icon-close.png 2x" title="Fermer les Informations"/>';
         }
     }
     function toggleFooter() {
@@ -126,17 +126,15 @@
 <div id="grid"></div>
 <div id="roomContainer"></div>
 <div id="header">
+    <span><a href="https://www.tenno.wf" rel="nofollow noopener">Retournez a l'accueil</a></span>
     <span id="burgerButton" class="button" onclick="doBurgerMenu(this)"><img src="icons/icon-burger.png" srcset="icons2x/icon-burger.png 2x" title="Menu"/></span>
-    <span id="addRoomButton" class="button" onclick="doAddMenu(this)"><img src="icons/icon-add.png" srcset="icons2x/icon-add.png 2x" title="Add Room"/></span>
-    <span id="undoButton" class="button-disabled" onclick="doUndo(this)"><img src="icons/icon-undo.png" srcset="icons2x/icon-undo.png 2x" title="Undo"/></span>
-    <span id="redoButton" class="button-disabled" onclick="doRedo(this)"><img src="icons/icon-redo.png" srcset="icons2x/icon-redo.png 2x" title="Redo"/></span>
     <span id="allErrorsButton" class="button-clear" onclick="doShowAllErrors(this)"><img src="icons/icon-ok.png" srcset="icons2x/icon-ok.png 2x" title="OK"/></span>
 </div>
 <div id="sidebar">
-    <div id="floorUpButton" class="button" onclick="doFloorUp(this)"><img id="floorUpButtonImg" src="icons/icon-up.png" srcset="icons2x/icon-up.png 2x" title="Up"/></div>
-    <div id="floorDownButton" class="button" onclick="doFloorDown(this)"><img id="floorDownButtonImg" src="icons/icon-down.png" srcset="icons2x/icon-down.png 2x" title="Down"/></div>
+    <div id="floorUpButton" class="button" onclick="doFloorUp(this)"><img id="floorUpButtonImg" src="icons/icon-up.png" srcset="icons2x/icon-up.png 2x" title="Monté"/></div>
+    <div id="floorDownButton" class="button" onclick="doFloorDown(this)"><img id="floorDownButtonImg" src="icons/icon-down.png" srcset="icons2x/icon-down.png 2x" title="Descendre"/></div>
 </div>
-<div id="helpToggle" class="button" onclick="toggleHelp()"><img src="icons/icon-help.png" srcset="icons2x/icon-help.png 2x" title="Show Help"/></div>
+<div id="helpToggle" class="button" onclick="toggleHelp()"><img src="icons/icon-help.png" srcset="icons2x/icon-help.png 2x" title="Informations"/></div>
 <div id="errorBar">
     Javascript must be enabled
 </div>
@@ -177,13 +175,13 @@
                 L'étage en surbrillance à gauche de l'écran indique quel étage est actuellement visible. Les numéros d'étage commencent à <strong>1</strong> au rez-de-chaussée et augmentent à partir de là. Sous l'étage <strong>1</strong> se trouve l'étage <strong>B1</strong>, et le décompte se fait à partir de là.
             </p>
             <p>
-                Utilisez le bouton <span class="docImgButton"><img src="/assets/resources/images/dojo/icons/icon-up.png" srcset="/assets/resources/images/dojo/icons2x/icon-up.png 2x" title="Monté"/></span> au-dessus de la liste des étages pour voir l'étage supérieur. <br>
-                Utilisez le bouton <span class="docImgButton"><img src="/assets/resources/images/dojo/icons/icon-down.png" srcset="/assets/resources/dojo/icons2x/icon-down.png 2x" title="Descendre"/></span> pour afficher l'étage inférieur suivant. <br>
+                Utilisez le bouton <span class="docImgButton"><img src="icons/icon-up.png" srcset="icons2x/icon-up.png 2x" title="Monté"/></span> au-dessus de la liste des étages pour voir l'étage supérieur. <br>
+                Utilisez le bouton <span class="docImgButton"><img src="icons/icon-down.png" srcset="icon-down.png 2x" title="Descendre"/></span> pour afficher l'étage inférieur suivant. <br>
                 Vous pouvez également utiliser les touches fléchées <strong>haut</strong> et <strong>bas</strong> pour vous déplacer entre les étages.
             </p>
             <p>
                 La liste des étages a un nombre maximum d'étages qu'elle peut afficher en même temps.
-                S'il y a un débordement en haut ou en bas, alors la <span class="docImgButton"><img src="/assets/resources/images/dojo/icons/icon-up.png" srcset="/assets/resources/images/dojo/icons2x/icon-up.png 2x" title="Monté"/></span> et/ou <span class="docImgButton"><img src="/assets/resources/images/dojo/icons/icon-down.png" srcset="/assets/resources/images/dojo/icons2x/icon-down.png 2x" title="Descendre"/></span> <br> seront remplacés par <span class="docImgButton"><img src="/assets/resources/images/dojo/icons/icon-up-more.png" srcset="/assets/resources/images/dojo/icons2x/icon-up-more.png 2x" title="Monté"/></span> et/ou <span class="docImgButton"><img src="/assets/resources/images/dojo/icons/icon-down-more.png" srcset="/assets/resources/images/dojo/icons2x/icon-down-more.png 2x" title="Descendre"/></span>
+                S'il y a un débordement en haut ou en bas, alors la <span class="docImgButton"><img src="icons/icon-up.png" srcset="icons2x/icon-up.png 2x" title="Monté"/></span> et/ou <span class="docImgButton"><img src="icons/icon-down.png" srcset="icons2x/icon-down.png 2x" title="Descendre"/></span> <br> seront remplacés par <span class="docImgButton"><img src="icons/icon-up-more.png" srcset="icons2x/icon-up-more.png 2x" title="Monté"/></span> et/ou <span class="docImgButton"><img src="icons/icon-down-more.png" srcset="icons2x/icon-down-more.png 2x" title="Descendre"/></span>
             </p>
             <p>
                 Les étages contenant des pièces avec des erreurs seront mis en évidence en <span class="docButton-error">rouges</span>.
@@ -191,12 +189,12 @@
 
             <h2>Changer l'étage d'un ascenseur</h2>
             <p>
-                Les ascenseurs couvrent deux étages, soit en montant de l'étage actuel, soit en descendant. Pour changer la direction d'un ascenseur, sélectionnez-le et cliquez à nouveau pour faire apparaître un menu. Sélectionnez <span class="docImgButton"><img src="/assets/resources/images/dojo/icons/icon-change-floor.png" srcset="/assets/resources/images/dojo/icons2x/icon-change-floor.png 2x" title="Changer de direction"/></span> pour changer la direction de l'ascenseur.
+                Les ascenseurs couvrent deux étages, soit en montant de l'étage actuel, soit en descendant. Pour changer la direction d'un ascenseur, sélectionnez-le et cliquez à nouveau pour faire apparaître un menu. Sélectionnez <span class="docImgButton"><img src="icons/icon-change-floor.png" srcset="icons2x/icon-change-floor.png 2x" title="Changer de direction"/></span> pour changer la direction de l'ascenseur.
             </p>
 
             <h1>Exportation en PNG</h1>
             <p>
-                Vous souhaitez avoir une image de notre Dojo ? Cliquez sur le <span class="docImgButton"><img src="/assets/resources/images/dojo/icons/icon-burger.png" srcset="/assets/resources/images/dojo/icons2x/icon-burger.png 2x" title="Menu"/></span> puis <span class="docImgButton"><img src="/assets/resources/images/dojo/icons/icon-png.png" srcset="/assets/resources/images/dojo/icons2x/icon-png.png 2x" title="PNG"/></span> pour faire apparaître un menu permettant d'exporter la mise en page de notre dojo vers un ou plusieurs fichiers PNG. <br> Par la suite, il vous suffit d'appuyer sûr <strong class="docButton">Créer l'image</strong>
+                Vous souhaitez avoir une image de notre Dojo ? Cliquez sur le <span class="docImgButton"><img src="icons/icon-burger.png" srcset="icons2x/icon-burger.png 2x" title="Menu"/></span> puis <span class="docImgButton"><img src="icons/icon-png.png" srcset="icons2x/icon-png.png 2x" title="PNG"/></span> pour faire apparaître un menu permettant d'exporter la mise en page de notre dojo vers un ou plusieurs fichiers PNG. <br> Par la suite, il vous suffit d'appuyer sûr <strong class="docButton">Créer l'image</strong>
             </p>
             <p>
                 Si notre dojo a plusieurs étages, une image distincte est générée pour chaque étage. La même taille et le même positionnement sont utilisés pour les images de chaque étage, de sorte qu'elles s'alignent les unes sur les autres.
