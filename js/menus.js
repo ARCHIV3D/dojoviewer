@@ -427,7 +427,7 @@ function doShowErrors() {
 
     if (errorList && errorList.length > 0) {
         var menuDiv = buildMenu("menu-table-error");
-        menuDiv.appendChild(buildMenuHeaderLine("Errors", 3));
+        menuDiv.appendChild(buildMenuHeaderLine("Erreurs", 3));
         for (var e = 0; e < errorList.length; e++) {
             var error = errorList[e].toString();
             var errorButton = buildMenuButton(error, null, "icon-error", "menu-button-error");
@@ -436,7 +436,7 @@ function doShowErrors() {
 
     } else if (warnList && warnList.length > 0) {
         var menuDiv = buildMenu("menu-table-warn");
-        menuDiv.appendChild(buildMenuHeaderLine("Warnings", 3));
+        menuDiv.appendChild(buildMenuHeaderLine("Avertissements", 3));
         for (var e = 0; e < warnList.length; e++) {
             var error = warnList[e].toString();
             var errorButton = buildMenuButton(error, null, "icon-warn", "menu-button-warn");
