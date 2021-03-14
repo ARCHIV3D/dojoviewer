@@ -324,7 +324,7 @@ function hasError(errors, error) {
 
 function buildAddRoomButton(roomMetadata, room = null, errors = null) {
     if (room != null) {
-        var menuTitle = "<span class="is-desactivate">option désactivée</span>";
+        var menuTitle = "<span class=\"is-desactivate\">option désactivée</span>";
 
     } else {
         var count = roomCounter.getRoomCount(roomMetadata);
