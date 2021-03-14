@@ -1,5 +1,5 @@
 * { 
-	cursor: url('sor.cur'), pointer;
+    cursor: url('sor.cur'), pointer;
 }
 /* z-index groups:
         0: body, grid
@@ -302,7 +302,7 @@
     .button > img, .button-disabled > img, .button-error > img, .button-clear > img,
     .docImgButton > img, .docImgButton-error > img, .docImgButton-clear > img,
     .field > img, .field-error > img,
-    .menu-button > img, .menu-button-error > img, .menu-button-clear > img {
+    .menu-button-yes > img, .menu-button-error > img, .menu-button-clear > img {
         display: inline-block;
         vertical-align: middle;
     }
@@ -390,7 +390,7 @@
         color: #000000;
     }
 
-    .menu-button, .menu-button-error, .menu-button-warn {
+    .menu-button-yes, .menu-button-error, .menu-button-warn {
         margin: 1ex 1ex 1ex 1ex;
         border: none;
         padding: 1ex;
@@ -399,6 +399,10 @@
         font-size: 100%;
         border-radius: 1ex;
         cursor: pointer;
+    }
+
+    .menu-button {
+        display: none;
     }
 
     .menu-button-clear {
@@ -416,15 +420,15 @@
         cursor: pointer;
     }
 
-    .menu-button {
+    .menu-button-yes {
         background-color: #101010;
         color: #FFFFFF;
         user-select: none;
         
     }
 
-	.menu-button-false {
-		display: none;
+    .menu-button-false {
+        display: none;
 }
 
     .menu-button-error {
