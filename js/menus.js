@@ -108,7 +108,7 @@ function buildCloseMenuButton() {
     return buttonDiv;
 }
 
-function buildMenuButton(label, callback, icon = null, className = "menu-button") {
+function buildMenuButton(label, callback, icon = null, className = "menu-button-") {
     var tr = document.createElement("tr");
 
     var iconTd = document.createElement("td");
