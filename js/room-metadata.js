@@ -106,7 +106,7 @@ var roomMetadata =
 	"resources": [],
 	"blockedFromAboveBy": [
 	    ]},
-{"id": "h2", "image": "clan-great-hall", "name": "Grande Hall de Clan", "category": "Halls", "prereq": null, "capacity": 200, "energy": -2, "maxnum": 1, "spawn": true, "floor": -12, "ceil": 24,
+{"id": "h2", "image": "clan-great-hall", "name": "Grand Hall de Clan", "category": "Halls", "prereq": null, "capacity": 200, "energy": -2, "maxnum": 1, "spawn": true, "floor": -12, "ceil": 24,
 	"bounds": [
 		{"x1": -18, "y1": -32, "x2": 18, "y2": 32, "floor": -12, "ceil": 24}],
 	"doors": [
