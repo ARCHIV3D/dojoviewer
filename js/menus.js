@@ -285,9 +285,9 @@ function doAddMenu() {
     }
 
     if (lastAddedRoomMetadata) {
-        menuDiv.appendChild(buildMenuDivider(6));
-        var roomButtonDiv = buildAddRoomButton(lastAddedRoomMetadata);
-        menuDiv.appendChild(roomButtonDiv);
+        //menuDiv.appendChild(buildMenuDivider(6));
+        //var roomButtonDiv = buildAddRoomButton(lastAddedRoomMetadata);
+        //menuDiv.appendChild(roomButtonDiv);
     }
 
     showMenu(menuDiv, element);
@@ -323,8 +323,8 @@ function hasError(errors, error) {
 }
 
 function buildAddRoomButton(roomMetadata, room = null, errors = null) {
-    /*if (room != null) {
-        var menuTitle = "Dupliquer";
+    if (room != null) {
+        var menuTitle = "Informations";
 
     } else {
         var count = roomCounter.getRoomCount(roomMetadata);
@@ -334,7 +334,7 @@ function buildAddRoomButton(roomMetadata, room = null, errors = null) {
     for (var i = 0; i < roomButtonDiv.children.length; i++) {
         roomButtonDiv.children[i].roomMetadata = roomMetadata;
         roomButtonDiv.children[i].room = room;
-    }*/
+    }
 
     var errors = getNewRoomErrors(roomMetadata);
 
