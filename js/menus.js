@@ -399,7 +399,7 @@ function doRoomMenu(e, room) {
         tr.appendChild(buildBlank());
     }
     var roomCount = roomCounter.getRoomCount(room.metadata);
-    tr.appendChild(buildMenuLabel(room.metadata.name, 4, roomCount <= 1 ? null : `&nbsp;(${roomCount} built)`));
+    tr.appendChild(buildMenuLabel(room.metadata.name, 4, roomCount <= 1 ? null : `&nbsp;(${roomCount} existant(e))`));
     tr.appendChild(buildCloseMenuButton());
 
     menuDiv.appendChild(tr);
@@ -409,6 +409,7 @@ function doRoomMenu(e, room) {
         menuDiv.appendChild(buildMenuButton("Changer de direction", rotateFloorSelectedRoom, "icon-change-floor"));
     }
 
+    menuDiv.appendChild(buildAddRoomButton(room.metadata, room));
     //menuDiv.appendChild(buildAddRoomButton(room.metadata, room));
 
     //menuDiv.appendChild(buildMenuDivider(6));
