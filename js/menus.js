@@ -83,7 +83,7 @@ function buildBlank(colSpan = 1) {
     return td;
 }
 
-function buildMenuHeaderLine(title, colSpan, icon = null, className = "menu-button") {
+function buildMenuHeaderLine(title, colSpan, icon = null, className = "menu-button-yes") {
     var tr = document.createElement("tr");
     var iconTd = document.createElement("td");
     if (icon) {
@@ -108,7 +108,7 @@ function buildCloseMenuButton() {
     return buttonDiv;
 }
 
-function buildMenuButton(label, callback, icon = null, className = "menu-button") {
+function buildMenuButton(label, callback, icon = null, className = "menu-button-yes") {
     var tr = document.createElement("tr");
 
     var iconTd = document.createElement("td");
@@ -142,7 +142,7 @@ function buildLinkMenuButton(label, link, icon = null, error = false) {
     }
 
     var buttonDiv = document.createElement("td");
-    buttonDiv.className = error ? "menu-button-error" : "menu-button";
+    buttonDiv.className = error ? "menu-button-error" : "menu-button-yes";
     buttonDiv.innerHTML = `<a class="link-button" href="${link}">${label}</a>`;
     buttonDiv.menuLevel = getCurrentMenuLevel() + 1;
     tr.appendChild(buttonDiv);
