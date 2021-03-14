@@ -200,7 +200,7 @@
     @font-face {
     font-family: Ailerons;
     font-weight: 400;
-    src: url('/assets/resources/fonts/Ailerons-Regular.ttf') format("woff");
+    src: url('Ailerons-Regular.ttf') format("woff");
 }
     .title {
         font-weight: 200;
