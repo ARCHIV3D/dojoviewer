@@ -409,6 +409,7 @@ function doRoomMenu(e, room) {
         menuDiv.appendChild(buildMenuButton("Changer de direction", rotateFloorSelectedRoom, "icon-change-floor"));
     }
 
+    menuDiv.appendChild(buildAddRoomButton(room.metadata, room));
     //menuDiv.appendChild(buildAddRoomButton(room.metadata, room));
 
     //menuDiv.appendChild(buildMenuDivider(6));
