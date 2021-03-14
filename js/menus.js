@@ -324,7 +324,7 @@ function hasError(errors, error) {
 
 function buildAddRoomButton(roomMetadata, room = null, errors = null) {
     if (room != null) {
-        //var menuTitle = "Duplicate";
+        var menuTitle = "Dupliquer";
 
     } else {
         var count = roomCounter.getRoomCount(roomMetadata);
