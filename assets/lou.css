@@ -1,6 +1,3 @@
-* { 
-    cursor: url('sor.cur'), pointer;
-}
 /* z-index groups:
         0: body, grid
         100x: background rooms not on the current floor
@@ -203,7 +200,7 @@
     @font-face {
     font-family: Ailerons;
     font-weight: 400;
-    src: url('Ailerons-Regular.ttf') format("woff");
+    src: url('/assets/resources/fonts/Ailerons-Regular.ttf') format("woff");
 }
     .title {
         font-weight: 200;
@@ -302,7 +299,7 @@
     .button > img, .button-disabled > img, .button-error > img, .button-clear > img,
     .docImgButton > img, .docImgButton-error > img, .docImgButton-clear > img,
     .field > img, .field-error > img,
-    .menu-button-yes > img, .menu-button-error > img, .menu-button-clear > img {
+    .menu-button > img, .menu-button-error > img, .menu-button-clear > img {
         display: inline-block;
         vertical-align: middle;
     }
@@ -390,7 +387,7 @@
         color: #000000;
     }
 
-    .menu-button-yes, .menu-button-error, .menu-button-warn {
+    .menu-button, .menu-button-error, .menu-button-warn {
         margin: 1ex 1ex 1ex 1ex;
         border: none;
         padding: 1ex;
@@ -399,10 +396,6 @@
         font-size: 100%;
         border-radius: 1ex;
         cursor: pointer;
-    }
-
-    .menu-button {
-        display: none;
     }
 
     .menu-button-clear {
@@ -420,16 +413,11 @@
         cursor: pointer;
     }
 
-    .menu-button-yes {
+    .menu-button {
         background-color: #101010;
         color: #FFFFFF;
         user-select: none;
-        
     }
-
-    .menu-button-false {
-        display: none;
-}
 
     .menu-button-error {
         background-color: #802020;
@@ -448,9 +436,9 @@
         border-radius: 1ex;
     }
 
-    /*.imgButton {
+    .imgButton {
         cursor: pointer;
-    }*/
+    }
 
     .menu-table-error tr td.field, .menu-table-error tr td.imgField  {
         background-color: #381818;
@@ -592,4 +580,8 @@
 
     .matrix-error {
         background-color: #802020;
+    }
+
+    .is-desactivate {
+        display: none;
     }
