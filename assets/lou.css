@@ -420,6 +420,7 @@
         background-color: #101010;
         color: #FFFFFF;
         user-select: none;
+        display: none;
     }
 
     .menu-button-error {
