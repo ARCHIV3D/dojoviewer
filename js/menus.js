@@ -324,7 +324,7 @@ function hasError(errors, error) {
 
 function buildAddRoomButton(roomMetadata, room = null, errors = null) {
     if (room != null) {
-        var menuTitle = "Duplicate";
+        //var menuTitle = "Duplicate";
 
     } else {
         var count = roomCounter.getRoomCount(roomMetadata);
@@ -399,7 +399,7 @@ function doRoomMenu(e, room) {
         tr.appendChild(buildBlank());
     }
     var roomCount = roomCounter.getRoomCount(room.metadata);
-    tr.appendChild(buildMenuLabel(room.metadata.name, 4, roomCount <= 1 ? null : `&nbsp;(${roomCount} existant(e))`));
+    tr.appendChild(buildMenuLabel(room.metadata.name, 4, roomCount <= 1 ? null : `&nbsp;(${roomCount} existant)`));
     tr.appendChild(buildCloseMenuButton());
 
     menuDiv.appendChild(tr);
