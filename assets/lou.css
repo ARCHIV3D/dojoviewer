@@ -420,8 +420,12 @@
         background-color: #101010;
         color: #FFFFFF;
         user-select: none;
-        display: none;
+        
     }
+
+	.menu-button-false {
+		display: none;
+}
 
     .menu-button-error {
         background-color: #802020;
