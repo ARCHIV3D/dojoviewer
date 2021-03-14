@@ -285,9 +285,9 @@ function doAddMenu() {
     }
 
     if (lastAddedRoomMetadata) {
-        //menuDiv.appendChild(buildMenuDivider(6));
-        //var roomButtonDiv = buildAddRoomButton(lastAddedRoomMetadata);
-        //menuDiv.appendChild(roomButtonDiv);
+        menuDiv.appendChild(buildMenuDivider(6));
+        var roomButtonDiv = buildAddRoomButton(lastAddedRoomMetadata);
+        menuDiv.appendChild(roomButtonDiv);
     }
 
     showMenu(menuDiv, element);
