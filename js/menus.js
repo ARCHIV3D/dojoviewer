@@ -330,7 +330,8 @@ function buildAddRoomButton(roomMetadata, room = null, errors = null) {
         //var count = roomCounter.getRoomCount(roomMetadata);
         //var menuTitle = roomMetadata.name + (count > 0 ? (" (" + count + ")") : "");
     }
-    var roomButtonDiv = buildMenuButton(menuTitle, doAddRoomButton, icon="icon-room-" + roomMetadata.image);
+    var roomButtonDiv = buildMenuButton(doAddRoomButton, icon="icon-room-" + roomMetadata.image);
+    //var roomButtonDiv = buildMenuButton(menuTitle, doAddRoomButton, icon="icon-room-" + roomMetadata.image);
     for (var i = 0; i < roomButtonDiv.children.length; i++) {
         roomButtonDiv.children[i].roomMetadata = roomMetadata;
         roomButtonDiv.children[i].room = room;
