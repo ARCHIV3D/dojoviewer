@@ -108,14 +108,14 @@ function buildCloseMenuButton() {
     return buttonDiv;
 }
 
-function buildMenuButton(label, callback, icon = null, className = "menu-button-yes") {
+function buildMenuButton(label, callback, icon = null, className = "menu-button") {
     var tr = document.createElement("tr");
 
     var iconTd = document.createElement("td");
     if (icon) {
         iconTd.className = "imgField";
         iconTd.innerHTML = `<img class="imgButton" src="icons/${icon}.png" srcset="icons2x/${icon}.png 2x"/>`;
-        iconTd.onclick = callback;
+        //iconTd.onclick = callback;
         iconTd.menuLevel = getCurrentMenuLevel() + 1;
     }
     tr.appendChild(iconTd);
