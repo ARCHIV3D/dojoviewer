@@ -324,11 +324,11 @@ function hasError(errors, error) {
 
 function buildAddRoomButton(roomMetadata, room = null, errors = null) {
     if (room != null) {
-        var menuTitle = "Dupliquer";
+        //var menuTitle = "Dupliquer";
 
     } else {
-        var count = roomCounter.getRoomCount(roomMetadata);
-        var menuTitle = roomMetadata.name + (count > 0 ? (" (" + count + ")") : "");
+        //var count = roomCounter.getRoomCount(roomMetadata);
+        //var menuTitle = roomMetadata.name + (count > 0 ? (" (" + count + ")") : "");
     }
     var roomButtonDiv = buildMenuButton(menuTitle, doAddRoomButton, icon="icon-room-" + roomMetadata.image);
     for (var i = 0; i < roomButtonDiv.children.length; i++) {
