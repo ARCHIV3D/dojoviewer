@@ -23,124 +23,110 @@
     <script type="text/javascript" language="javascript" src="js/elevator.js"></script>
     <script type="text/javascript" language="javascript" src="js/menus.js"></script>
     <script type="text/javascript" language="javascript">
-	    function toggleHelp() {
-	      var help = document.getElementById("help");
-	      var helpToggle = document.getElementById("helpToggle");
-	      if (help.style.visibility == "visible") {
-	        help.style.visibility = "hidden";
-	        helpToggle.innerHTML = '<img src="icons/icon-help.png" srcset="icons2x/icon-help.png 2x" title="Ouvrir les Informations"/>';
-	        removeUrlAnchor();
-	      } else {
-	        help.style.visibility = "visible";
-	        helpToggle.innerHTML = '<img src="icons/icon-close.png" srcset="icons2x/icon-close.png 2x" title="Fermer les Informations"/>';
-	      }
-	    }
+    function toggleHelp() {
+        var help = document.getElementById("help");
+        var helpToggle = document.getElementById("helpToggle");
 
-	    function toggleFooter() {
-	      if (window.event && window.event.altKey) {
-	        toggleDebug();
-	        return;
-	      }
-	    }
+        if (help.style.visibility == "visible") {
+            help.style.visibility = "hidden";
+            helpToggle.innerHTML = '<img src="icons/icon-help.png" srcset="icons2x/icon-help.png 2x" title="Ouvrir les Informations"/>';
+            removeUrlAnchor();
 
-	    function toggleDebug() {
-	      if (debugEnabled) {
-	        debugEnabled = false;
-	        setModelDebug(false);
-	        showDebug("Debug: off");
-	        hideDebug();
-	        removeUrlQueryParam("m");
-	        removeUrlQueryParam("debug");
-	        saveModelToUrl();
-	      } else {
-	        debugEnabled = true;
-	        setModelDebug(true);
-	        showDebug("Debug: on");
-	        removeUrlQueryParam("mz");
-	        modifyUrlQueryParam("debug", "true");
-	        saveModelToUrl();
-	      }
-	      enableAutoScrollDebug(debugEnabled);
-	    }
+        } else {
+            help.style.visibility = "visible";
+            helpToggle.innerHTML = '<img src="icons/icon-close.png" srcset="icons2x/icon-close.png 2x" title="Fermer les Informations"/>';
+        }
+    }
+    function toggleFooter() {
+        if (window.event && window.event.altKey) {
+            toggleDebug();
+            return;
+        }
+    }
+    function toggleDebug() {
+        if (debugEnabled) {
+            debugEnabled = false;
+            setModelDebug(false);
+            showDebug("Debug: off");
+            hideDebug();
+			removeUrlQueryParam("m");
+            removeUrlQueryParam("debug");
+			saveModelToUrl();
+        } else {
+            debugEnabled = true;
+            setModelDebug(true);
+            showDebug("Debug: on");
+			removeUrlQueryParam("mz");
+            modifyUrlQueryParam("debug", "true");
+			saveModelToUrl();
+        }
+        enableAutoScrollDebug(debugEnabled);
+    }
+    function windowOnError(msg, url, lineNo, columnNo, error) {
+        var html = url + ": " + lineNo + ":" + columnNo + "<br/>";
+        var html = html + msg.replace("Uncaught ", "");
+        showError(html);
+        return false;
+    }
+    function showError(html) {
+        clearMenus();
+        var errorBarElement = document.getElementById("errorBar");
+        errorBarElement.innerHTML = html;
+        errorBarElement.style.visibility = "visible";
+        return false;
+    }
+    function clearErrors() {
+        var errorBarElement = document.getElementById("errorBar");
+        if (errorBarElement.style.visibility != "hidden") {
+            errorBarElement.innerHTML = "";
+            errorBarElement.style.visibility = "hidden";
+        }
+    }
+    var debugCount = 0;
+    var maxDebugLines = 5;
+    function showDebug(html) {
+        var debugBarElement = document.getElementById("debugBar");
+        while (debugBarElement.childElementCount >= maxDebugLines) {
+            debugBarElement.firstElementChild.remove();
+        }
+        var div = document.createElement("div");
+        debugCount++;
+        div.innerHTML = debugCount + ". " + html;
+        debugBarElement.appendChild(div);
 
-	    function windowOnError(msg, url, lineNo, columnNo, error) {
-	      var html = url + ": " + lineNo + ":" + columnNo + "<br/>";
-	      var html = html + msg.replace("Uncaught ", "");
-	      showError(html);
-	      return false;
-	    }
+        debugBarElement.style.visibility = "visible";
+    }
+    function hideDebug() {
+        var debugBarElement = document.getElementById("debugBar");
 
-	    function showError(html) {
-	      clearMenus();
-	      var errorBarElement = document.getElementById("errorBar");
-	      errorBarElement.innerHTML = html;
-	      errorBarElement.style.visibility = "visible";
-	      return false;
-	    }
-
-	    function clearErrors() {
-	      var errorBarElement = document.getElementById("errorBar");
-	      if (errorBarElement.style.visibility != "hidden") {
-	        errorBarElement.innerHTML = "";
-	        errorBarElement.style.visibility = "hidden";
-	      }
-	    }
-	    var debugCount = 0;
-	    var maxDebugLines = 5;
-
-	    function showDebug(html) {
-	      var debugBarElement = document.getElementById("debugBar");
-	      while (debugBarElement.childElementCount >= maxDebugLines) {
-	        debugBarElement.firstElementChild.remove();
-	      }
-	      var div = document.createElement("div");
-	      debugCount++;
-	      div.innerHTML = debugCount + ". " + html;
-	      debugBarElement.appendChild(div);
-	      debugBarElement.style.visibility = "visible";
-	    }
-
-	    function hideDebug() {
-	      var debugBarElement = document.getElementById("debugBar");
-	      debugBarElement.style.visibility = "hidden";
-	    }
-
-	    function init() {
-	      window.onerror = windowOnError;
-	      onresize();
-	      var grid = document.getElementById("grid");
-	      grid.addEventListener("mousedown", mouseDown, {
-	        passive: false
-	      });
-	      grid.addEventListener("wheel", wheel, {
-	        passive: false
-	      });
-	      grid.addEventListener("touchstart", touchStart, {
-	        passive: false
-	      });
-	      grid.addEventListener("touchcancel", touchCancel, {
-	        passive: false
-	      });
-	      clearErrors();
-	      initModel();
-	      if (window.location.href.indexOf("#") > 0) {
-	        toggleHelp();
-	      }
-	      if (getQueryParam(window.location.href, "debug") == "true") {
-	        toggleDebug();
-	      }
-	    }
-
-	    function onresize() {
-	      var h = Math.max(document.documentElement.clientHeight, window.innerHeight);
-	      var w = Math.max(document.documentElement.clientWidth, window.innerWidth);
-	      windowSizeChanged(h, w);
-	    }
-
-	    function onScroll() {
-	      document.body.scrollTo(0, 0);
-	    }
-    </script>
+        debugBarElement.style.visibility = "hidden";
+    }
+    function init() {
+        window.onerror = windowOnError;
+        onresize();
+        var grid = document.getElementById("grid");
+        grid.addEventListener("mousedown", mouseDown, { passive: false });
+        grid.addEventListener("wheel", wheel, { passive: false });
+        grid.addEventListener("touchstart", touchStart, { passive: false });
+        grid.addEventListener("touchcancel", touchCancel, { passive: false });
+        clearErrors();
+        initModel();
+        if (window.location.href.indexOf("#") > 0) {
+            toggleHelp();
+        }
+        if (getQueryParam(window.location.href, "debug") == "true") {
+            toggleDebug();
+        }
+    }
+    function onresize() {
+        var h = Math.max(document.documentElement.clientHeight, window.innerHeight);
+        var w = Math.max(document.documentElement.clientWidth, window.innerWidth);
+        windowSizeChanged(h, w);
+    }
+    function onScroll() {
+        document.body.scrollTo(0, 0);
+    }
+</script>
 </head>
 <body onload="init()" onkeydown="keyDown()" onscroll="onScroll()" onresize="onresize()">
 <div id="grid"></div>
