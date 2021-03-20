@@ -5,6 +5,11 @@
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Dojo - Watsonius Tenno.WF</title>
+    <meta name="description" content="Découvrez l'état actuel du Dojo reliée au clan Watsonius Tenno, plus besoin de vous connecter sur Warframe, Watsonius Tenno.WF est désormais là." />
+    <meta property="og:title" content="Dojo - Watsonius Tenno.WF" />
+    <meta property="og:description" content="Découvrez l'état actuel du Dojo reliée au clan Watsonius Tenno, plus besoin de vous connecter sur Warframe, Watsonius Tenno.WF est désormais là." />
+    <meta name="twitter:title" content="Dojo - Watsonius Tenno.WF">
+    <meta name="twitter:description" content="Découvrez l'état actuel du Dojo reliée au clan Watsonius Tenno, plus besoin de vous connecter sur Warframe, Watsonius Tenno.WF est désormais là.">
     <link href="assets/logo.png" rel="icon" type="image/png" />
     <link rel="stylesheet" href="assets/lou.css" type="text/css" />
     <script type="text/javascript" language="javascript" src="js/lib/lz-string.js"></script>
@@ -19,107 +24,121 @@
     <script type="text/javascript" language="javascript" src="js/menus.js"></script>
     <script type="text/javascript" language="javascript">
 	    function toggleHelp() {
-		var help = document.getElementById("help");
-		var helpToggle = document.getElementById("helpToggle");
-
-		if (help.style.visibility == "visible") {
-		    help.style.visibility = "hidden";
-		    helpToggle.innerHTML = '<img src="icons/icon-help.png" srcset="icons2x/icon-help.png 2x" title="Ouvrir les Informations"/>';
-		    removeUrlAnchor();
-
-		} else {
-		    help.style.visibility = "visible";
-		    helpToggle.innerHTML = '<img src="icons/icon-close.png" srcset="icons2x/icon-close.png 2x" title="Fermer les Informations"/>';
-		}
+	      var help = document.getElementById("help");
+	      var helpToggle = document.getElementById("helpToggle");
+	      if (help.style.visibility == "visible") {
+	        help.style.visibility = "hidden";
+	        helpToggle.innerHTML = '<img src="icons/icon-help.png" srcset="icons2x/icon-help.png 2x" title="Ouvrir les Informations"/>';
+	        removeUrlAnchor();
+	      } else {
+	        help.style.visibility = "visible";
+	        helpToggle.innerHTML = '<img src="icons/icon-close.png" srcset="icons2x/icon-close.png 2x" title="Fermer les Informations"/>';
+	      }
 	    }
+
 	    function toggleFooter() {
-		if (window.event && window.event.altKey) {
-		    toggleDebug();
-		    return;
-		}
+	      if (window.event && window.event.altKey) {
+	        toggleDebug();
+	        return;
+	      }
 	    }
+
 	    function toggleDebug() {
-		if (debugEnabled) {
-		    debugEnabled = false;
-		    setModelDebug(false);
-		    showDebug("Debug: off");
-		    hideDebug();
-				removeUrlQueryParam("m");
-		    removeUrlQueryParam("debug");
-				saveModelToUrl();
-		} else {
-		    debugEnabled = true;
-		    setModelDebug(true);
-		    showDebug("Debug: on");
-				removeUrlQueryParam("mz");
-		    modifyUrlQueryParam("debug", "true");
-				saveModelToUrl();
-		}
-		enableAutoScrollDebug(debugEnabled);
+	      if (debugEnabled) {
+	        debugEnabled = false;
+	        setModelDebug(false);
+	        showDebug("Debug: off");
+	        hideDebug();
+	        removeUrlQueryParam("m");
+	        removeUrlQueryParam("debug");
+	        saveModelToUrl();
+	      } else {
+	        debugEnabled = true;
+	        setModelDebug(true);
+	        showDebug("Debug: on");
+	        removeUrlQueryParam("mz");
+	        modifyUrlQueryParam("debug", "true");
+	        saveModelToUrl();
+	      }
+	      enableAutoScrollDebug(debugEnabled);
 	    }
+
 	    function windowOnError(msg, url, lineNo, columnNo, error) {
-		var html = url + ": " + lineNo + ":" + columnNo + "<br/>";
-		var html = html + msg.replace("Uncaught ", "");
-		showError(html);
-		return false;
+	      var html = url + ": " + lineNo + ":" + columnNo + "<br/>";
+	      var html = html + msg.replace("Uncaught ", "");
+	      showError(html);
+	      return false;
 	    }
+
 	    function showError(html) {
-		clearMenus();
-		var errorBarElement = document.getElementById("errorBar");
-		errorBarElement.innerHTML = html;
-		errorBarElement.style.visibility = "visible";
-		return false;
+	      clearMenus();
+	      var errorBarElement = document.getElementById("errorBar");
+	      errorBarElement.innerHTML = html;
+	      errorBarElement.style.visibility = "visible";
+	      return false;
 	    }
+
 	    function clearErrors() {
-		var errorBarElement = document.getElementById("errorBar");
-		if (errorBarElement.style.visibility != "hidden") {
-		    errorBarElement.innerHTML = "";
-		    errorBarElement.style.visibility = "hidden";
-		}
+	      var errorBarElement = document.getElementById("errorBar");
+	      if (errorBarElement.style.visibility != "hidden") {
+	        errorBarElement.innerHTML = "";
+	        errorBarElement.style.visibility = "hidden";
+	      }
 	    }
 	    var debugCount = 0;
 	    var maxDebugLines = 5;
+
 	    function showDebug(html) {
-		var debugBarElement = document.getElementById("debugBar");
-		while (debugBarElement.childElementCount >= maxDebugLines) {
-		    debugBarElement.firstElementChild.remove();
-		}
-		var div = document.createElement("div");
-		debugCount++;
-		div.innerHTML = debugCount + ". " + html;
-		debugBarElement.appendChild(div);
-
-		debugBarElement.style.visibility = "visible";
+	      var debugBarElement = document.getElementById("debugBar");
+	      while (debugBarElement.childElementCount >= maxDebugLines) {
+	        debugBarElement.firstElementChild.remove();
+	      }
+	      var div = document.createElement("div");
+	      debugCount++;
+	      div.innerHTML = debugCount + ". " + html;
+	      debugBarElement.appendChild(div);
+	      debugBarElement.style.visibility = "visible";
 	    }
+
 	    function hideDebug() {
-		var debugBarElement = document.getElementById("debugBar");
+	      var debugBarElement = document.getElementById("debugBar");
+	      debugBarElement.style.visibility = "hidden";
+	    }
 
-		debugBarElement.style.visibility = "hidden";
-	    }
 	    function init() {
-		window.onerror = windowOnError;
-		onresize();
-		var grid = document.getElementById("grid");
-		grid.addEventListener("mousedown", mouseDown, { passive: false });
-		grid.addEventListener("wheel", wheel, { passive: false });
-		grid.addEventListener("touchstart", touchStart, { passive: false });
-		grid.addEventListener("touchcancel", touchCancel, { passive: false });
-		clearErrors();
-		initModel();
-		if (window.location.href.indexOf("#") > 0) {
-		    toggleHelp();
-		}
-		if (getQueryParam(window.location.href, "debug") == "true") {
-		    toggleDebug();
-		}
+	      window.onerror = windowOnError;
+	      onresize();
+	      var grid = document.getElementById("grid");
+	      grid.addEventListener("mousedown", mouseDown, {
+	        passive: false
+	      });
+	      grid.addEventListener("wheel", wheel, {
+	        passive: false
+	      });
+	      grid.addEventListener("touchstart", touchStart, {
+	        passive: false
+	      });
+	      grid.addEventListener("touchcancel", touchCancel, {
+	        passive: false
+	      });
+	      clearErrors();
+	      initModel();
+	      if (window.location.href.indexOf("#") > 0) {
+	        toggleHelp();
+	      }
+	      if (getQueryParam(window.location.href, "debug") == "true") {
+	        toggleDebug();
+	      }
 	    }
+
 	    function onresize() {
-		var h = Math.max(document.documentElement.clientHeight, window.innerHeight);
-		var w = Math.max(document.documentElement.clientWidth, window.innerWidth);
-		windowSizeChanged(h, w);
+	      var h = Math.max(document.documentElement.clientHeight, window.innerHeight);
+	      var w = Math.max(document.documentElement.clientWidth, window.innerWidth);
+	      windowSizeChanged(h, w);
 	    }
+
 	    function onScroll() {
-		document.body.scrollTo(0, 0);
+	      document.body.scrollTo(0, 0);
 	    }
     </script>
 </head>
