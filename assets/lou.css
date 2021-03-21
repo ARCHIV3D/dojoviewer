@@ -13,6 +13,7 @@
         font-family: sans-serif;
         color: #ddd1a2;
         touch-action: manipulation;
+        cursor: url('sor.cur'), pointer;
     }
 
     /************************************************************
